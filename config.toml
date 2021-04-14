@@ -1,0 +1,32 @@
+prefix = "/srv/data/rchiu7/510lab/clef_meta"
+
+punctuation = "./sentence-punctuation.txt"
+stop-words = "./lemur-stopwords.txt"
+start-exceptions = "./sentence-start-exceptions.txt"
+end-exceptions = "./sentence-end-exceptions.txt"
+function-words = "./function-words.txt"
+
+corpus = "file.toml"
+dataset = "clef2018collection_B"
+index = "/srv/data/rchiu7/510lab/clef_meta/clef-idx"
+query-judgements = "/srv/data/rchiu7/510lab/clef_meta/relevance_processed.txt"
+
+[[analyzers]]
+method = "ngram-word"
+ngram = 1
+    [[analyzers.filter]]
+    type = "icu-tokenizer"
+
+    [[analyzers.filter]]
+    type = "lowercase"
+
+    [[analyzers.filter]]
+    type = "length"
+    min = 2
+    max = 35
+
+[ranker]
+method = "bm25"
+k1 = 1.2
+b = 0.75
+k3 = 500
